@@ -1,0 +1,165 @@
+Source: https://www.edureka.co
+
+Keyword Driven Framework: Methods + TestScripts
+
+package KeywordDriven;
+ 
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+ 
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+ 
+public class Actions 
+{
+ public static WebDriver driver;
+  
+ public static void openBrowser()
+ { 
+ System.setProperty("webdriver.chrome.driver", "C:\\Users\\Vardhan\\Downloads\\chromedriver.exe");
+ driver=new ChromeDriver();
+ }
+  
+ public static void navigate()
+ { 
+ driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+ driver.get("http://newtours.demoaut.com");
+ }
+  
+ public static void input_Username()
+ {
+ driver.findElement(By.name("userName")).sendKeys("mercury"); 
+ }
+  
+ public static void input_Password()
+ {
+ driver.findElement(By.name("password")).sendKeys("mercury");
+ }
+  
+ public static void click_Login()
+ {
+ driver.findElement(By.name("login")).click();
+ }
+ 
+@Test
+ public static void verify_login()
+ {
+ String pageTitle = driver.getTitle();
+ Assert.assertEquals(pageTitle, "Find a Flight: Mercury Tours:");
+ }
+ 
+ public static void closeBrowser()
+ {
+ driver.quit();
+ }
+}
+
+package KeywordDriven;
+ 
+public class DriverScript
+{
+ public static void main(String[] args) throws Exception 
+ {
+ //Declaring the path of the Excel file with the name of the Excel file
+ String sPath = "C:\\Users\\Vardhan\\workspace\\Selenium Frameworks Demo\\dataEngine.xlsx"; 
+ 
+ //Here we are passing the Excel path and SheetName as arguments to connect with Excel file
+ ReadExcelData.setExcelFile(sPath, "Sheet1");
+ 
+ //Hard coded values are used for Excel row & columns for now     
+ //Hard coded values are used for Excel row & columns for now    
+ //In later chapters we will replace these hard coded values with varibales    //This is the loop for reading the values of the column 3 (Action Keyword) row by row
+ for (int iRow=1;iRow<=7;iRow++)
+ {
+ String sActions = ReadExcelData.getCellData(iRow, 1); 
+ 
+ //Comparing the value of Excel cell with all the keywords in the "Actions" class
+ if(sActions.equals("openBrowser"))
+ { 
+ //This will execute if the excel cell value is 'openBrowser'    
+ //Action Keyword is called here to perform action
+ Actions.openBrowser();
+ }
+ else if(sActions.equals("navigate"))
+ {
+ Actions.navigate();
+ }
+ else if(sActions.equals("input_Username"))
+ {
+ Actions.input_Username();
+ }
+ else if(sActions.equals("input_Password"))
+ {
+ Actions.input_Password();
+ }
+ else if(sActions.equals("click_Login"))
+ {
+ Actions.click_Login();
+ } 
+ else if(sActions.equals("verify_Login"))
+ {
+ Actions.verify_login();
+ } 
+ else if(sActions.equals("closeBrowser"))
+ {
+ Actions.closeBrowser();
+ } 
+ }
+ }
+}
+
+package KeywordDriven;
+ 
+public class DriverScript
+{
+ public static void main(String[] args) throws Exception 
+ {
+ //Declaring the path of the Excel file with the name of the Excel file
+ String sPath = "C:\\Users\\Vardhan\\workspace\\Selenium Frameworks Demo\\dataEngine.xlsx"; 
+ 
+ //Here we are passing the Excel path and SheetName as arguments to connect with Excel file
+ ReadExcelData.setExcelFile(sPath, "Sheet1");
+ 
+ //Hard coded values are used for Excel row & columns for now     
+ //Hard coded values are used for Excel row & columns for now    
+ //In later chapters we will replace these hard coded values with varibales    //This is the loop for reading the values of the column 3 (Action Keyword) row by row
+ for (int iRow=1;iRow<=7;iRow++)
+ {
+ String sActions = ReadExcelData.getCellData(iRow, 1); 
+ 
+ //Comparing the value of Excel cell with all the keywords in the "Actions" class
+ if(sActions.equals("openBrowser"))
+ { 
+ //This will execute if the excel cell value is 'openBrowser'    
+ //Action Keyword is called here to perform action
+ Actions.openBrowser();
+ }
+ else if(sActions.equals("navigate"))
+ {
+ Actions.navigate();
+ }
+ else if(sActions.equals("input_Username"))
+ {
+ Actions.input_Username();
+ }
+ else if(sActions.equals("input_Password"))
+ {
+ Actions.input_Password();
+ }
+ else if(sActions.equals("click_Login"))
+ {
+ Actions.click_Login();
+ } 
+ else if(sActions.equals("verify_Login"))
+ {
+ Actions.verify_login();
+ } 
+ else if(sActions.equals("closeBrowser"))
+ {
+ Actions.closeBrowser();
+ } 
+ }
+ }
+}
