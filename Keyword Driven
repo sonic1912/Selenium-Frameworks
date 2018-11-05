@@ -111,55 +111,28 @@ public class DriverScript
 }
 
 package KeywordDriven;
- 
-public class DriverScript
+
+public class ReadExcelData
 {
- public static void main(String[] args) throws Exception 
+ private static XSSFSheet ExcelWSheet;
+ private static XSSFWorkbook ExcelWBook;
+ private static XSSFCell Cell; 
+  
+ //This method is to set the File path and to open the Excel file
+ //Pass Excel Path and SheetName as Arguments to this method
+ public static void setExcelFile(String Path,String SheetName) throws Exception 
  {
- //Declaring the path of the Excel file with the name of the Excel file
- String sPath = "C:\\Users\\Vardhan\\workspace\\Selenium Frameworks Demo\\dataEngine.xlsx"; 
- 
- //Here we are passing the Excel path and SheetName as arguments to connect with Excel file
- ReadExcelData.setExcelFile(sPath, "Sheet1");
- 
- //Hard coded values are used for Excel row & columns for now     
- //Hard coded values are used for Excel row & columns for now    
- //In later chapters we will replace these hard coded values with varibales    //This is the loop for reading the values of the column 3 (Action Keyword) row by row
- for (int iRow=1;iRow<=7;iRow++)
- {
- String sActions = ReadExcelData.getCellData(iRow, 1); 
- 
- //Comparing the value of Excel cell with all the keywords in the "Actions" class
- if(sActions.equals("openBrowser"))
- { 
- //This will execute if the excel cell value is 'openBrowser'    
- //Action Keyword is called here to perform action
- Actions.openBrowser();
+ FileInputStream ExcelFile = new FileInputStream(Path);
+ ExcelWBook = new XSSFWorkbook(ExcelFile);
+ ExcelWSheet = ExcelWBook.getSheet(SheetName);
  }
- else if(sActions.equals("navigate"))
+  
+ //This method is to read the test data from the Excel cell
+ //In this we are passing parameters/arguments as Row Num and Col Num
+ public static String getCellData(int RowNum, int ColNum) throws Exception
  {
- Actions.navigate();
- }
- else if(sActions.equals("input_Username"))
- {
- Actions.input_Username();
- }
- else if(sActions.equals("input_Password"))
- {
- Actions.input_Password();
- }
- else if(sActions.equals("click_Login"))
- {
- Actions.click_Login();
- } 
- else if(sActions.equals("verify_Login"))
- {
- Actions.verify_login();
- } 
- else if(sActions.equals("closeBrowser"))
- {
- Actions.closeBrowser();
- } 
- }
+ Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
+ String CellData = Cell.getStringCellValue();
+ return CellData;
  }
 }
